@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Clock, MapPin, Phone, Mail, Star, Bike, ShoppingBag } from "lucide-react";
+import { useRef } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Clock, MapPin, Phone, Mail, Star, Bike, ShoppingBag } from "lucide-react";
 import promo from "@/assets/dishes/promo.jpg.asset.json";
 import smash from "@/assets/dishes/smash.jpg.asset.json";
 import chicken from "@/assets/dishes/chicken.jpg.asset.json";
