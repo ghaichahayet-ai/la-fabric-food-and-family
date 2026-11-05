@@ -151,29 +151,7 @@ function Index() {
       </div>
 
       {/* CARTE */}
-      <section id="carte" className="mx-auto max-w-7xl px-5 py-24">
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <Eyebrow>Ici, on fabric' le goût</Eyebrow>
-            <h2 className="display text-5xl text-primary-deep sm:text-6xl">Une carte pour<br />toutes les envies</h2>
-          </div>
-          <p className="max-w-sm text-muted-foreground">Smash burgers, poulet crousty, rolls, wraps et salades — préparés à la demande avec des produits frais et généreux.</p>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {CARTE.map((d, i) => (
-            <article key={d.nom} className={`group ${i === 0 ? "sm:col-span-2 sm:row-span-2" : ""}`}>
-              <div className="overflow-hidden bg-ink">
-                <img src={d.img} alt={d.nom} loading="lazy" className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div className="mt-3 flex items-baseline justify-between gap-3">
-                <h3 className={`font-bold uppercase text-primary-deep ${i === 0 ? "text-xl" : "text-sm"}`}>{d.nom}</h3>
-                <span className="font-bold text-primary">{d.prix}</span>
-              </div>
-              <p className="text-sm text-muted-foreground">{d.desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <Carte />
 
       {/* ENFANTS */}
       <section id="enfants" className="grid lg:grid-cols-2">
@@ -297,5 +275,36 @@ function Index() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function Carte() {
+  const track = useRef<HTMLDivElement>(null);
+  const scroll = (dir: number) => track.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
+  return (
+    <section id="carte" className="overflow-hidden py-24">
+      <div className="mx-auto grid max-w-7xl gap-10 pl-5 lg:grid-cols-[minmax(0,320px)_1fr] lg:items-center">
+        <div className="pr-5">
+          <Eyebrow>Depuis nos cuisines</Eyebrow>
+          <h2 className="display text-5xl text-primary-deep sm:text-6xl">Nos plats<br />signature</h2>
+          <p className="mt-5 text-muted-foreground">Smash burgers, poulet crousty, rolls, wraps et salades — préparés à la demande avec des produits frais et généreux.</p>
+          <div className="mt-8 flex gap-3">
+            <button aria-label="Précédent" onClick={() => scroll(-1)} className="flex h-12 w-12 items-center justify-center border border-primary-deep text-primary-deep transition-colors hover:bg-primary-deep hover:text-primary-foreground"><ArrowLeft className="h-5 w-5" /></button>
+            <button aria-label="Suivant" onClick={() => scroll(1)} className="flex h-12 w-12 items-center justify-center bg-primary text-primary-foreground transition-colors hover:bg-primary-deep"><ArrowRight className="h-5 w-5" /></button>
+          </div>
+        </div>
+        <div ref={track} className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 pr-5 [scrollbar-width:none] lg:-mr-[calc((100vw-80rem)/2)]">
+          {CARTE.map((d) => (
+            <article key={d.nom} className="group w-72 shrink-0 snap-start sm:w-80">
+              <div className="overflow-hidden bg-ink">
+                <img src={d.img} alt={d.nom} loading="lazy" className="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              </div>
+              <h3 className="mt-4 font-bold uppercase text-primary-deep">{d.nom}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{d.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
